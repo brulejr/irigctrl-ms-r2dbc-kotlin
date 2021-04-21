@@ -21,27 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.irigctrlms.mapping
+package io.jrb.labs.common.repository
 
-import io.jrb.labs.irigctrlms.model.SensorEntity
-import io.jrb.labs.irigctrlms.resource.SensorRequest
-import io.jrb.labs.irigctrlms.resource.SensorResource
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
+import io.jrb.labs.common.model.Entity
+import reactor.core.publisher.Mono
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface SensorMapper {
+interface NamedEntityRepository<E: Entity> : EntityRepository<E> {
 
-    fun sensorEntityToSensorResource(
-        sensorEntity: SensorEntity
-    ) : SensorResource
-
-    fun sensorRequestToSensorEntity(
-        sensorRequest: SensorRequest
-    ) : SensorEntity
-
-    fun sensorResourceToSensorEntity(
-        sensoryResource: SensorResource
-    ) : SensorEntity
+    fun findByName(name: String): Mono<E>
 
 }

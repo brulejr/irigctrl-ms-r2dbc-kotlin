@@ -25,10 +25,5 @@ package io.jrb.labs.common.repository
 
 import io.jrb.labs.common.model.Entity
 import org.springframework.data.repository.reactive.ReactiveCrudRepository
-import reactor.core.publisher.Mono
 
-interface EntityRepository<E: Entity> : ReactiveCrudRepository<E, Long> {
-
-    fun findByName(name: String): Mono<E>
-
-}
+interface EntityRepository<E: Entity> : ReactiveCrudRepository<E, Long>

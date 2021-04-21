@@ -23,7 +23,7 @@
  */
 package io.jrb.labs.irigctrlms.model
 
-import io.jrb.labs.common.model.Entity
+import io.jrb.labs.common.model.TrackedEntity
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
@@ -54,4 +54,4 @@ data class SensorEntity(
     @Column(value = "se_modified_on")
     override val modifiedOn: Instant?
     
-) : Entity
+) : TrackedEntity

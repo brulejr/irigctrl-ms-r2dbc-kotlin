@@ -21,27 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.irigctrlms.mapping
+package io.jrb.labs.irigctrlms.rest
 
-import io.jrb.labs.irigctrlms.model.SensorEntity
-import io.jrb.labs.irigctrlms.resource.SensorRequest
-import io.jrb.labs.irigctrlms.resource.SensorResource
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
+import io.jrb.labs.irigctrlms.resource.MeasurementResource
+import io.jrb.labs.irigctrlms.service.MeasurementService
+import org.springframework.hateoas.EntityModel
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+import reactor.core.publisher.Flux
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface SensorMapper {
+@RestController
+@RequestMapping("/api/sensors")
+class MeasurementController(
+    private val measurementService: MeasurementService
+) {
 
-    fun sensorEntityToSensorResource(
-        sensorEntity: SensorEntity
-    ) : SensorResource
-
-    fun sensorRequestToSensorEntity(
-        sensorRequest: SensorRequest
-    ) : SensorEntity
-
-    fun sensorResourceToSensorEntity(
-        sensoryResource: SensorResource
-    ) : SensorEntity
+    @GetMapping("/{sensorName}/measurements")
+    fun listMeasurementsBySensorName(@PathVariable sensorName: String): Flux<EntityModel<MeasurementResource>> {
+        return measurementService.listMeasurementsBySensor(sensorName).map {
+            EntityModel.of(it)
+        }
+    }
 
 }

@@ -23,11 +23,11 @@
  */
 package io.jrb.labs.irigctrlms.resource
 
+import com.fasterxml.jackson.annotation.JsonInclude
 import io.jrb.labs.common.resource.Resource
-import org.springframework.data.relational.core.mapping.Table
 import java.time.Instant
 
-@Table(value = "t_sensor")
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 data class SensorResource(
 
     override val name: String,

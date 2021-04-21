@@ -21,27 +21,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.irigctrlms.mapping
+package io.jrb.labs.irigctrlms.model
 
-import io.jrb.labs.irigctrlms.model.SensorEntity
-import io.jrb.labs.irigctrlms.resource.SensorRequest
-import io.jrb.labs.irigctrlms.resource.SensorResource
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
+import io.jrb.labs.common.model.Entity
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
+import org.springframework.data.relational.core.mapping.Table
+import java.time.Instant
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface SensorMapper {
+@Table(value = "t_measurement")
+data class MeasurementEntity(
 
-    fun sensorEntityToSensorResource(
-        sensorEntity: SensorEntity
-    ) : SensorResource
+    @Id
+    @Column(value = "me_id")
+    override val id: Long? = null,
 
-    fun sensorRequestToSensorEntity(
-        sensorRequest: SensorRequest
-    ) : SensorEntity
+    @Column(value = "me_se_id")
+    val sensorId: Long,
 
-    fun sensorResourceToSensorEntity(
-        sensoryResource: SensorResource
-    ) : SensorEntity
+    @Column(value = "me_timestamp")
+    val timestamp: Instant,
 
-}
+    @Column(value = "me_type")
+    val type: String,
+
+    @Column(value = "me_value")
+    val value: Double,
+
+    @Column(value = "me_units")
+    val units: String
+    
+) : Entity

@@ -23,25 +23,21 @@
  */
 package io.jrb.labs.irigctrlms.mapping
 
-import io.jrb.labs.irigctrlms.model.SensorEntity
-import io.jrb.labs.irigctrlms.resource.SensorRequest
-import io.jrb.labs.irigctrlms.resource.SensorResource
+import io.jrb.labs.irigctrlms.model.MeasurementEntity
+import io.jrb.labs.irigctrlms.resource.MeasurementRequest
+import io.jrb.labs.irigctrlms.resource.MeasurementResource
 import org.mapstruct.Mapper
 import org.mapstruct.ReportingPolicy
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface SensorMapper {
+interface MeasurementMapper {
 
-    fun sensorEntityToSensorResource(
-        sensorEntity: SensorEntity
-    ) : SensorResource
+    fun measurementEntityToMeasurementResource(
+        measurementEntity: MeasurementEntity
+    ) : MeasurementResource
 
-    fun sensorRequestToSensorEntity(
-        sensorRequest: SensorRequest
-    ) : SensorEntity
-
-    fun sensorResourceToSensorEntity(
-        sensoryResource: SensorResource
-    ) : SensorEntity
+    fun measurementRequestToMeasurementEntity(
+        measurementRequest: MeasurementRequest
+    ) : MeasurementEntity
 
 }

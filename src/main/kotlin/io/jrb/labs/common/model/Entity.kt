@@ -24,7 +24,5 @@
 package io.jrb.labs.common.model
 
 import io.jrb.labs.common.contract.Identifiable
-import io.jrb.labs.common.contract.Nameable
-import io.jrb.labs.common.contract.Trackable
 
-interface Entity : Identifiable, Nameable, Trackable
+interface Entity : Identifiable

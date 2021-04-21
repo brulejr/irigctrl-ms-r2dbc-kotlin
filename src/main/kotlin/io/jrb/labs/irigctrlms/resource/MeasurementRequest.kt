@@ -21,27 +21,28 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.irigctrlms.mapping
+package io.jrb.labs.irigctrlms.resource
 
-import io.jrb.labs.irigctrlms.model.SensorEntity
-import io.jrb.labs.irigctrlms.resource.SensorRequest
-import io.jrb.labs.irigctrlms.resource.SensorResource
-import org.mapstruct.Mapper
-import org.mapstruct.ReportingPolicy
+import com.fasterxml.jackson.annotation.JsonInclude
+import java.time.Instant
+import javax.validation.constraints.NotBlank
+import javax.validation.constraints.Size
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-interface SensorMapper {
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+data class MeasurementRequest(
 
-    fun sensorEntityToSensorResource(
-        sensorEntity: SensorEntity
-    ) : SensorResource
+    val sensorName: String?,
 
-    fun sensorRequestToSensorEntity(
-        sensorRequest: SensorRequest
-    ) : SensorEntity
+    val timestamp: Instant = Instant.now(),
 
-    fun sensorResourceToSensorEntity(
-        sensoryResource: SensorResource
-    ) : SensorEntity
+    @field:NotBlank(message = "Type is mandatory")
+    @field:Size(min = 8, max = 64, message = "Type must be between 8 and 64 characters")
+    val type: String,
 
-}
+    val value: Double,
+
+    @field:NotBlank(message = "Name is mandatory")
+    @field:Size(min = 8, max = 64, message = "Name must be between 8 and 64 characters")
+    val units: String
+    
+)

@@ -23,6 +23,7 @@
  */
 package io.jrb.labs.irigctrlms.config
 
+import io.jrb.labs.irigctrlms.service.MeasurementService
 import io.jrb.labs.irigctrlms.service.SensorService
 import io.r2dbc.spi.ConnectionFactory
 import org.springframework.beans.factory.annotation.Qualifier
@@ -40,8 +41,10 @@ import org.springframework.transaction.ReactiveTransactionManager
 class DatabaseJavaConfig(db: DatabaseClient) {
 
     @Bean
-    fun demoInitializer(sensorService: SensorService) =
-        DemoInitializer(sensorService)
+    fun demoInitializer(
+        sensorService: SensorService,
+        measurementService: MeasurementService
+    ) = DemoInitializer(sensorService, measurementService)
 
     @Bean
     fun schemaInitializer(@Qualifier("connectionFactory") connectionFactory: ConnectionFactory?): ConnectionFactoryInitializer? {

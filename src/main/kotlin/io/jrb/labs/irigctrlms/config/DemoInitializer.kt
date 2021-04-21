@@ -23,22 +23,27 @@
  */
 package io.jrb.labs.irigctrlms.config
 
+import io.jrb.labs.irigctrlms.resource.MeasurementRequest
 import io.jrb.labs.irigctrlms.resource.SensorRequest
+import io.jrb.labs.irigctrlms.service.MeasurementService
 import io.jrb.labs.irigctrlms.service.SensorService
 import mu.KotlinLogging
 import org.springframework.boot.context.event.ApplicationReadyEvent
 import org.springframework.context.ApplicationListener
 import reactor.core.publisher.Flux
 import java.time.Duration
+import java.time.Instant
 
 class DemoInitializer(
-    private val sensorService: SensorService
+    private val sensorService: SensorService,
+    private val measurementService: MeasurementService
 ) : ApplicationListener<ApplicationReadyEvent> {
 
     private val log = KotlinLogging.logger {}
 
     override fun onApplicationEvent(event: ApplicationReadyEvent) {
         createSensors()
+        createMeasurements()
     }
 
     private fun createSensors() {
@@ -49,6 +54,18 @@ class DemoInitializer(
         ))
             .flatMap { sensorService.createSensor(it) }
             .doOnComplete { log.info("--- Sensors created") }
+            .blockLast(Duration.ofSeconds(3))
+    }
+
+    private fun createMeasurements() {
+        log.info("Creating Measurements")
+        Flux.fromIterable(listOf(
+            MeasurementRequest(sensorName = "sensor2", type = "A", units = "TMP", value = 123.456),
+            MeasurementRequest(sensorName = "sensor2", type = "A", units = "TMP", value = 456.789),
+            MeasurementRequest(sensorName = "sensor1", type = "B", units = "TMP", value = 111.222)
+        ))
+            .flatMap { measurementService.createMeasurement(it.sensorName, it) }
+            .doOnComplete { log.info("--- Measurements created") }
             .blockLast(Duration.ofSeconds(3))
     }
 

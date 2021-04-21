@@ -23,9 +23,9 @@
  */
 package io.jrb.labs.irigctrlms.repository
 
-import io.jrb.labs.common.repository.EntityRepository
+import io.jrb.labs.common.repository.NamedEntityRepository
 import io.jrb.labs.irigctrlms.model.SensorEntity
 import org.springframework.stereotype.Repository
 
 @Repository
-interface SensorRepository : EntityRepository<SensorEntity>
+interface SensorRepository : NamedEntityRepository<SensorEntity>

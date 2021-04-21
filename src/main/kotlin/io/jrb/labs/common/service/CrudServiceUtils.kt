@@ -24,16 +24,15 @@
 package io.jrb.labs.common.service
 
 import io.jrb.labs.common.model.Entity
-import io.jrb.labs.common.repository.EntityRepository
+import io.jrb.labs.common.repository.NamedEntityRepository
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.UUID
 
 interface CrudServiceUtils<E: Entity> {
 
     val entityClass: Class<E>
     val entityName: String
-    val repository: EntityRepository<E>
+    val repository: NamedEntityRepository<E>
 
     fun createEntity(entity: E): Mono<E>
 
