@@ -21,8 +21,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.common.model
+package io.jrb.labs.irigctrlms.model
 
-import io.jrb.labs.common.contract.Trackable
+import io.jrb.labs.common.model.NamedEntity
+import io.jrb.labs.common.model.TrackedEntity
+import org.springframework.data.annotation.Id
+import org.springframework.data.relational.core.mapping.Column
+import org.springframework.data.relational.core.mapping.Table
+import java.time.Instant
 
-interface TrackedEntity : Entity, Trackable
+@Table(value = "t_schedule")
+data class ScheduleEntity(
+
+    @Id
+    @Column(value = "sc_id")
+    override val id: Long? = null,
+
+    @Column(value = "sc_name")
+    override val name: String,
+
+    @Column(value = "sc_friendly_name")
+    override val friendlyName: String,
+
+    @Column(value = "sc_created_on")
+    override val createdOn: Instant?,
+
+    @Column(value = "sc_modified_on")
+    override val modifiedOn: Instant?
+    
+) : NamedEntity

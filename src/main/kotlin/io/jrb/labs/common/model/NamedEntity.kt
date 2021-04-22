@@ -25,4 +25,4 @@ package io.jrb.labs.common.model
 
 import io.jrb.labs.common.contract.Nameable
 
-interface NamedEntity : Entity, Nameable
+interface NamedEntity : TrackedEntity, Nameable

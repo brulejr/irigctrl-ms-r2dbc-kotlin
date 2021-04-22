@@ -23,7 +23,7 @@
  */
 package io.jrb.labs.irigctrlms.model
 
-import io.jrb.labs.common.model.TrackedEntity
+import io.jrb.labs.common.model.NamedEntity
 import org.springframework.data.annotation.Id
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
@@ -42,16 +42,10 @@ data class SensorEntity(
     @Column(value = "se_friendly_name")
     override val friendlyName: String,
 
-    @Column(value = "se_created_by")
-    override val createdBy: String?,
-
     @Column(value = "se_created_on")
     override val createdOn: Instant?,
-
-    @Column(value = "se_modified_by")
-    override val modifiedBy: String?,
 
     @Column(value = "se_modified_on")
     override val modifiedOn: Instant?
     
-) : TrackedEntity
+) : NamedEntity

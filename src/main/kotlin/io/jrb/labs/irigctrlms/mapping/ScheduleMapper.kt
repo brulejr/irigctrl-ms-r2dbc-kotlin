@@ -21,8 +21,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.common.model
+package io.jrb.labs.irigctrlms.mapping
 
-import io.jrb.labs.common.contract.Trackable
+import io.jrb.labs.irigctrlms.model.ScheduleEntity
+import io.jrb.labs.irigctrlms.resource.ScheduleRequest
+import io.jrb.labs.irigctrlms.resource.ScheduleResource
+import org.mapstruct.Mapper
+import org.mapstruct.ReportingPolicy
 
-interface TrackedEntity : Entity, Trackable
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+interface ScheduleMapper {
+
+    fun scheduleEntityToScheduleResource(
+        scheduleEntity: ScheduleEntity
+    ) : ScheduleResource
+
+    fun scheduleRequestToScheduleEntity(
+        scheduleRequest: ScheduleRequest
+    ) : ScheduleEntity
+
+    fun scheduleResourceToScheduleEntity(
+        scheduleResource: ScheduleResource
+    ) : ScheduleEntity
+
+}

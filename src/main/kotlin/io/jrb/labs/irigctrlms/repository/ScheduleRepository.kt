@@ -21,8 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.common.model
+package io.jrb.labs.irigctrlms.repository
 
-import io.jrb.labs.common.contract.Trackable
+import io.jrb.labs.common.repository.NamedEntityRepository
+import io.jrb.labs.irigctrlms.model.ScheduleEntity
+import org.springframework.stereotype.Repository
 
-interface TrackedEntity : Entity, Trackable
+@Repository
+interface ScheduleRepository : NamedEntityRepository<ScheduleEntity>

@@ -21,8 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package io.jrb.labs.common.model
+package io.jrb.labs.irigctrlms.resource
 
-import io.jrb.labs.common.contract.Trackable
+import com.fasterxml.jackson.annotation.JsonInclude
+import io.jrb.labs.common.resource.Resource
+import java.time.Instant
 
-interface TrackedEntity : Entity, Trackable
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
+data class ScheduleResource(
+
+    override val name: String,
+    override val friendlyName: String,
+    override val createdOn: Instant?,
+    override val modifiedOn: Instant?
+    
+) : Resource

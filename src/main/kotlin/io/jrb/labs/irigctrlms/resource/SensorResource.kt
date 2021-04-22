@@ -32,9 +32,7 @@ data class SensorResource(
 
     override val name: String,
     override val friendlyName: String,
-    override val createdBy: String?,
     override val createdOn: Instant?,
-    override val modifiedBy: String?,
     override val modifiedOn: Instant?
     
 ) : Resource
